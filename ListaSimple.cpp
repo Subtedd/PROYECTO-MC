@@ -15,6 +15,7 @@ class Nodo
 Nodo *listaContrasenias = NULL;
 
 void guardarDatosLista(Nodo *&, string, string, string);
+string verTodo(Nodo *); 
 
 int main()
 {
@@ -28,4 +29,16 @@ void guardarDatosLista(Nodo *&listaContrasenias, string SitiO, string UsuariO, s
     nuevoNodo->usuario = UsuariO;
     nuevoNodo->contrasenia = ContraseniA;
     nuevoNodo->siguiente = NULL;
+}
+
+string verTodo(Nodo *listaContrasenias)
+{
+  Nodo *actual = listaContrasenias;
+
+  while(actual!=NULL)
+  {
+   cout << "sitio:" << actual->sitio << endl;
+   actual = actual->siguiente;
+  }
+
 }
