@@ -1,5 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,6 +23,7 @@ Nodo *listaContrasenias = NULL;
 
 void menu();
 void guardarDatosLista(Nodo *&, string, string, string);
+string guardarContraseniaAleatoria();
 void verTodo(Nodo *); 
 
 int main()
@@ -98,6 +101,30 @@ void guardarDatosLista(Nodo *&listaContrasenias, string SitiO, string UsuariO, s
  nuevoNodo->siguiente = pem1;
   cout<<endl<<"El sitio, usuario y contrasenia se agregaron correctamente a la Lista."<<endl;
 }
+
+string generarContraseniaAleatoria()
+{
+  int numeroAleatorio;
+  char letra;
+  string contraseniaAleatoria;
+
+   srand(time(0));
+
+   numeroAleatorio = 6+(rand() % 10);
+
+   for(int i=0; i<= numeroAleatorio; i++)
+   {
+    for(int j=0; i<= numeroAleatorio; i++)
+    {
+      letra = 97 + rand() % (122-97);
+      contraseniaAleatoria += letra;
+    }
+   }
+   
+   return contraseniaAleatoria;
+}
+
+
 
 void verTodo(Nodo *listaContrasenias)
 {
