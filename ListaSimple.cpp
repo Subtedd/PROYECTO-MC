@@ -4,7 +4,7 @@
 using namespace std;
 
 class Nodo
-{
+{ 
  public:   
   Nodo *siguiente;
   string sitio;
@@ -21,10 +21,11 @@ Nodo *listaContrasenias = NULL;
 
 void menu();
 void guardarDatosLista(Nodo *&, string, string, string);
-string verTodo(Nodo *); 
+void verTodo(Nodo *); 
 
 int main()
 {
+  menu();
 
 }
 
@@ -39,19 +40,18 @@ void menu()
     cout << "\n2.Ver todo" << endl;
     cin >> opcion;
 
-    }while(opcion != 3);
-
     system("cls");
 
     switch (opcion)
     {
     case 1:
+    fflush(stdin);
      cout << "Escriba el sitio:";
-     cin >> SITIO;
+     getline(cin,SITIO);
      cout << endl << "Escriba usuario:";
-     cin >> USUARIO;
+     getline(cin,USUARIO);
      cout << endl << "Escriba contrasenia:";
-     cin >> CONTRASENIA;
+     getline(cin,CONTRASENIA);
 
      guardarDatosLista(listaContrasenias,SITIO,USUARIO,CONTRASENIA);
 
@@ -59,9 +59,14 @@ void menu()
    system("pause");
     break;
     
-    default:
-        break;
+    case 2:
+    verTodo(listaContrasenias);
+    cout<<"\n"<<endl;
+    system("pause");
+    break;
     }
+
+    }while(opcion != 3);
 }
 
 
@@ -73,9 +78,28 @@ void guardarDatosLista(Nodo *&listaContrasenias, string SitiO, string UsuariO, s
     nuevoNodo->usuario = UsuariO;
     nuevoNodo->contrasenia = ContraseniA;
     nuevoNodo->siguiente = NULL;
+
+    Nodo *pem1 = listaContrasenias;
+    Nodo *pem2;
+
+    while(pem1!=NULL)
+    {
+      pem2 = pem1;
+      pem1 = pem1->siguiente;
+    }
+
+     if(listaContrasenias == pem1){
+  listaContrasenias = nuevoNodo;
+ }
+ 
+ else{
+  pem2->siguiente = nuevoNodo;
+ }
+ nuevoNodo->siguiente = pem1;
+  cout<<endl<<"El sitio, usuario y contrasenia se agregaron correctamente a la Lista."<<endl;
 }
 
-string verTodo(Nodo *listaContrasenias)
+void verTodo(Nodo *listaContrasenias)
 {
   Nodo *actual = listaContrasenias;
 
