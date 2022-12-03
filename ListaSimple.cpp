@@ -23,7 +23,7 @@ Nodo *listaContrasenias = NULL;
 
 void menu();
 void guardarDatosLista(Nodo *&, string, string, string);
-string guardarContraseniaAleatoria();
+string generarContraseniaAleatoria();
 void verTodo(Nodo *); 
 
 int main()
