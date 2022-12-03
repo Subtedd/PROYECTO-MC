@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctime>
 #include <cstdlib>
+#include <string.h>
 
 using namespace std;
 
@@ -25,6 +26,8 @@ void menu();
 void guardarDatosLista(Nodo *&, string, string, string);
 string generarContraseniaAleatoria();
 void verTodo(Nodo *); 
+void consultarSitio(Nodo *);
+
 
 int main()
 {
@@ -38,13 +41,15 @@ void menu()
     
     do
     {
+    system("cls");
     cout << "\t                                       GESTOR DE CONTRASENIAS\n";
-    cout << "\n1.Guardar datos en la lista" << endl;
-    cout << "\n2.Ver todo" << endl;
+    cout << "\nDigite (1) para guardar datos en la lista" << endl;
+    cout << "\nDigite (2) para ver todo" << endl;
+    cout << "\nDigite (3) para consultar sitio" << endl;
 
     cin >> opcion;
 
-    system("cls");
+   
 
     switch (opcion)
     {
@@ -69,6 +74,7 @@ void menu()
       CONTRASENIA = generarContraseniaAleatoria();
     }
    guardarDatosLista(listaContrasenias,SITIO,USUARIO,CONTRASENIA);
+   cout << "sitio,usuario y contrasenia guardados" << endl;
     cout<<"\n";
    system("pause");
     break;
@@ -78,10 +84,16 @@ void menu()
     cout<<"\n"<<endl;
     system("pause");
     break;
+    
+    case 3:
+    consultarSitio(listaContrasenias);
+    cout << "\n" << endl;
+    system ("pause");
+    break;
     }
-
-    }while(opcion != 3);
+    } while(opcion != 4);
 }
+
 
 
 
@@ -102,15 +114,17 @@ void guardarDatosLista(Nodo *&listaContrasenias, string SitiO, string UsuariO, s
       pem1 = pem1->siguiente;
     }
 
-     if(listaContrasenias == pem1){
+  if(listaContrasenias == pem1)
+  {
   listaContrasenias = nuevoNodo;
- }
+  }
  
- else{
+ else
+ {
   pem2->siguiente = nuevoNodo;
- }
+ 
  nuevoNodo->siguiente = pem1;
-  cout<<endl<<"El sitio, usuario y contrasenia se agregaron correctamente a la Lista."<<endl;
+ }
 }
 
 string generarContraseniaAleatoria()
@@ -139,12 +153,51 @@ string generarContraseniaAleatoria()
 
 void verTodo(Nodo *listaContrasenias)
 {
+  system("cls");
   Nodo *actual = listaContrasenias;
+  
+  if(actual == NULL)
+  {
+   cout << "No hay elemntos para mostrar" << endl; 
+  }
+  else
+  {
+   while(actual!=NULL)
+   {
+   cout << "sitio:" << actual->sitio << endl;
+   actual = actual->siguiente;
+   }
+  }
+  
+  
+}
+
+void consultarSitio(Nodo *listaContrasenias)
+{
+  system("cls");
+    fflush(stdin);
+    string sitioespecifico;
+    cout << "Escribe el nombre del sitio para saber el usuario y contrasenia:" << endl;
+    getline (cin, sitioespecifico);
+
+    Nodo *actual = listaContrasenias;
 
   while(actual!=NULL)
   {
-   cout << "sitio:" << actual->sitio << endl;
-   actual = actual->siguiente;
+   if (sitioespecifico == actual->sitio)
+   {
+    cout << "SITIO ENCONTRADO" << endl;
+    cout <<"Los datos del sitio son:" << endl;
+    cout << "usuario:" << actual->usuario << endl;
+    cout << "contrasenia:" << actual->contrasenia << endl;
+    actual = actual->siguiente;
+    cout << endl; 
+   }
+   else
+   {  
+    cout << "Sitio no encontrado" << endl;
+    actual = actual->siguiente;
+   }
   }
 
 }
