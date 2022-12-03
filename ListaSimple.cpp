@@ -41,6 +41,7 @@ void menu()
     cout << "\t                                       GESTOR DE CONTRASENIAS\n";
     cout << "\n1.Guardar datos en la lista" << endl;
     cout << "\n2.Ver todo" << endl;
+
     cin >> opcion;
 
     system("cls");
@@ -48,16 +49,26 @@ void menu()
     switch (opcion)
     {
     case 1:
+    int validacion;
     fflush(stdin);
      cout << "Escriba el sitio:";
      getline(cin,SITIO);
      cout << endl << "Escriba usuario:";
      getline(cin,USUARIO);
-     cout << endl << "Escriba contrasenia:";
+     cout << "Digite (1) si quiere una contrasenia manual y Digite (2) para una aleatoria" << endl;
+    cin >>  validacion;
+    if (validacion == 1)
+    {
+      fflush(stdin);
+      cout << endl << "Escriba contrasenia:";
      getline(cin,CONTRASENIA);
-
-     guardarDatosLista(listaContrasenias,SITIO,USUARIO,CONTRASENIA);
-
+    }
+    else if(validacion == 2)
+    {
+      fflush(stdin);
+      CONTRASENIA = generarContraseniaAleatoria();
+    }
+   guardarDatosLista(listaContrasenias,SITIO,USUARIO,CONTRASENIA);
     cout<<"\n";
    system("pause");
     break;
