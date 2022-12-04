@@ -21,6 +21,7 @@ string CONTRASENIA;
 
 
 Nodo *listaContrasenias = NULL;
+int contadorUsuarios;
 
 void menu();
 void guardarDatosLista(Nodo *&, string, string, string);
@@ -74,6 +75,7 @@ void menu()
       CONTRASENIA = generarContraseniaAleatoria();
     }
    guardarDatosLista(listaContrasenias,SITIO,USUARIO,CONTRASENIA);
+   contadorUsuarios ++;
    cout << "sitio,usuario y contrasenia guardados" << endl;
     cout<<"\n";
    system("pause");
@@ -176,7 +178,9 @@ void consultarSitio(Nodo *listaContrasenias)
 {
   system("cls");
     fflush(stdin);
-    string sitioespecifico;
+    string sitioespecifico,comparacion;
+    int opcion, validacion;
+
     cout << "Escribe el nombre del sitio para saber el usuario y contrasenia:" << endl;
     getline (cin, sitioespecifico);
 
@@ -190,8 +194,77 @@ void consultarSitio(Nodo *listaContrasenias)
     cout <<"Los datos del sitio son:" << endl;
     cout << "usuario:" << actual->usuario << endl;
     cout << "contrasenia:" << actual->contrasenia << endl;
-    actual = actual->siguiente;
-    cout << endl; 
+    cout << "\n" << endl;
+    cout << "\tMODIFICAR CONTRASEMIA?" << endl;
+    cout << "Digite (1) para si Y Digite (2) para no" << endl << ":";
+    cin >> opcion;
+
+    if (opcion == 1)
+    {
+      if (contadorUsuarios > 1)
+      {
+        fflush(stdin);
+        cout << "A que usuario le va a cambiar la contrasenia?" << endl << ":";
+        getline(cin,comparacion);
+
+        while(actual!=NULL)
+        {
+          if(comparacion == actual->usuario)
+          {
+               cout << "Digite (1) si quiere una contrasenia manual y Digite (2) para una aleatoria" << endl;
+               cin >>  validacion;
+               if (validacion == 1)
+                {
+                 fflush(stdin);
+                  cout << endl << "Escriba contrasenia:";
+                  getline(cin,CONTRASENIA);
+                  actual->contrasenia = CONTRASENIA;
+                 cout << "contrasenia modificada "<< endl;
+                 }
+                else if(validacion == 2)
+                 {
+                  fflush(stdin);
+                 actual->contrasenia = (CONTRASENIA = generarContraseniaAleatoria()) ;
+                  cout << "contrasenia modificada "<< endl;
+                 }
+                actual = actual->siguiente;
+          }
+          else
+          {
+            cout << "Usuario no encontrado" << endl;
+            return menu();
+          }
+
+        }
+
+      }
+      else
+      {
+               cout << "Digite (1) si quiere una contrasenia manual y Digite (2) para una aleatoria" << endl;
+               cin >>  validacion;
+               if (validacion == 1)
+                {
+                 fflush(stdin);
+                  cout << endl << "Escriba contrasenia:";
+                 getline(cin,CONTRASENIA);
+                 actual->contrasenia = CONTRASENIA;
+                 }
+                else if(validacion == 2)
+                 {
+                  fflush(stdin);
+                  actual->contrasenia = (CONTRASENIA = generarContraseniaAleatoria());
+                 }
+                 cout << "contrasenia modificada "<< endl;
+                 return menu();
+
+      }
+     
+    } 
+    else 
+    {
+      return menu();
+    }
+     actual = actual->siguiente;
    }
    else
    {  
